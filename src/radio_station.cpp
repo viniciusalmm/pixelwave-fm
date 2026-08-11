@@ -1,51 +1,57 @@
 #include "radio_station.hpp"
 
+#include "errors.hpp"
+
+#include <algorithm>
 #include <iostream>
 #include <memory>
 
-RadioStation::RadioStation(const std::string& name)
+radio_station::radio_station(const std::string& name)
     : name_(name)
 {
 }
 
-Playlist& RadioStation::getPlaylist()
+playlist& radio_station::get_playlist()
 {
     return playlist_;
 }
 
-void RadioStation::addListener(const Listener& listener)
+const playlist& radio_station::get_playlist() const
 {
-    listeners_.push_back(listener);
+    return playlist_;
 }
 
-bool RadioStation::removeListener(std::size_t index)
+void radio_station::add_listener(const listener& listener_item)
+{
+    if (listener_item.get_nickname().empty())
+    {
+        throw domain_error("Listener nickname cannot be empty.");
+    }
+
+    listeners_.push_back(listener_item);
+}
+
+bool radio_station::remove_listener(std::size_t index)
 {
     if (index >= listeners_.size())
     {
         return false;
     }
 
-    listeners_.erase(listeners_.begin() + index);
-
+    listeners_.erase(listeners_.begin() + static_cast<std::ptrdiff_t>(index));
     return true;
 }
 
-void RadioStation::showStationInfo() const
+void radio_station::show_station_info() const
 {
     std::cout << "\n=====================================\n";
     std::cout << "         " << name_ << '\n';
     std::cout << "=====================================\n";
-
-    std::cout << "Songs available: "
-              << playlist_.size()
-              << '\n';
-
-    std::cout << "Listeners online: "
-              << listeners_.size()
-              << "\n\n";
+    std::cout << "Songs available: " << playlist_.size() << '\n';
+    std::cout << "Listeners online: " << listeners_.size() << "\n\n";
 }
 
-void RadioStation::showListeners() const
+void radio_station::show_listeners() const
 {
     std::cout << "\n===== LISTENERS =====\n\n";
 
@@ -55,15 +61,15 @@ void RadioStation::showListeners() const
         return;
     }
 
-    for (std::size_t i = 0; i < listeners_.size(); ++i)
+    for (std::size_t index = 0; index < listeners_.size(); ++index)
     {
-        std::cout << i + 1 << ". ";
-        listeners_[i].showProfile();
+        std::cout << index + 1 << ". ";
+        listeners_[index].show_profile();
         std::cout << '\n';
     }
 }
 
-void RadioStation::playMusic() const
+void radio_station::play_music() const
 {
     if (playlist_.size() == 0)
     {
@@ -72,17 +78,20 @@ void RadioStation::playMusic() const
     }
 
     std::cout << "\n===== NOW PLAYING =====\n\n";
-
-    playlist_.getMusic(0).showInfo();
+    playlist_.get_music(0).show_info();
 }
 
-void RadioStation::addProgram(
-    std::unique_ptr<BroadcastContent> program)
+void radio_station::add_program(std::unique_ptr<broadcast_content> program)
 {
+    if (!program)
+    {
+        throw invalid_program("program cannot be null");
+    }
+
     programs_.push_back(std::move(program));
 }
 
-void RadioStation::showPrograms() const
+void radio_station::show_programs() const
 {
     std::cout << "\n===== PROGRAMS =====\n\n";
 
@@ -99,8 +108,35 @@ void RadioStation::showPrograms() const
     }
 }
 
-const std::vector<std::unique_ptr<BroadcastContent>>&
-RadioStation::getPrograms() const
+const std::vector<std::unique_ptr<broadcast_content>>& radio_station::get_programs() const
 {
     return programs_;
+}
+
+const std::string& radio_station::get_name() const
+{
+    return name_;
+}
+
+const std::vector<listener>& radio_station::get_listeners() const
+{
+    return listeners_;
+}
+
+std::optional<listener> radio_station::find_listener(const std::string& nickname) const
+{
+    const auto iterator = std::find_if(
+        listeners_.begin(),
+        listeners_.end(),
+        [&nickname](const listener& listener_item)
+        {
+            return listener_item.get_nickname() == nickname;
+        });
+
+    if (iterator == listeners_.end())
+    {
+        return std::nullopt;
+    }
+
+    return *iterator;
 }

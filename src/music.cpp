@@ -2,14 +2,14 @@
 
 #include <iostream>
 
-Music::Music()
+music::music()
     : title_("Unknown"),
       artist_("Unknown"),
       duration_(0)
 {
 }
 
-Music::Music(
+music::music(
     const std::string& title,
     const std::string& artist,
     int duration
@@ -20,37 +20,37 @@ Music::Music(
 {
 }
 
-std::string Music::getTitle() const
+std::string music::get_title() const
 {
     return title_;
 }
 
-std::string Music::getArtist() const
+std::string music::get_artist() const
 {
     return artist_;
 }
 
-int Music::getDuration() const
+int music::get_duration() const
 {
     return duration_;
 }
 
-void Music::setTitle(const std::string& title)
+void music::set_title(const std::string& title)
 {
     title_ = title;
 }
 
-void Music::setArtist(const std::string& artist)
+void music::set_artist(const std::string& artist)
 {
     artist_ = artist;
 }
 
-void Music::setDuration(int duration)
+void music::set_duration(int duration)
 {
     duration_ = duration;
 }
 
-void Music::showInfo() const
+void music::show_info() const
 {
     std::cout
         << title_
@@ -59,5 +59,5 @@ void Music::showInfo() const
         << " ("
         << duration_
         << " s)"
-        << std::endl;
+        << '\n';
 }

@@ -1,31 +1,29 @@
-#ifndef NEWS_PROGRAM_HPP
-#define NEWS_PROGRAM_HPP
+#ifndef news_program_hpp
+#define news_program_hpp
 
 #include "broadcast_content.hpp"
+#include "generic.hpp"
 #include "transmissible.hpp"
 
-class NewsProgram final : public BroadcastContent,
-                          public Transmissible
+class news_program final : public broadcast_content,
+                           public transmissible,
+                           public counted<news_program>
 {
 private:
-
-    int newsCount_;
+    int news_count_;
 
 public:
-
-    NewsProgram(
+    news_program(
         const std::string& title,
         const std::string& schedule,
-        int newsCount
+        int news_count
     );
 
-    int calculateAudience() const override;
-
+    int calculate_audience() const override;
     std::string type() const override;
-
     void display() const override;
-
     void transmit() const override;
+    int get_news_count() const;
 };
 
 #endif

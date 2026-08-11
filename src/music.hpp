@@ -1,39 +1,30 @@
-#ifndef MUSIC_HPP
-#define MUSIC_HPP
+#ifndef music_hpp
+#define music_hpp
 
 #include <string>
 
-
-class Music
+class music
 {
 private:
-
-
     std::string title_;
-
     std::string artist_;
-
     int duration_;
 
 public:
+    music();
+    music(const std::string& title, const std::string& artist, int duration);
 
-    Music();
+    std::string get_title() const;
+    std::string get_artist() const;
+    int get_duration() const;
 
-    Music(
-        const std::string& title,
-        const std::string& artist,
-        int duration
-    );
+    void set_title(const std::string& title);
+    void set_artist(const std::string& artist);
+    void set_duration(int duration);
 
-    std::string getTitle() const;
-    std::string getArtist() const;
-    int getDuration() const;
+    void show_info() const;
 
-    void setTitle(const std::string& title);
-    void setArtist(const std::string& artist);
-    void setDuration(int duration);
-    
-    void showInfo() const;
+    bool operator==(const music& other) const = default;
 };
 
 #endif

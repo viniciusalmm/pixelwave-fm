@@ -1,29 +1,24 @@
-#ifndef PLAYLIST_HPP
-#define PLAYLIST_HPP
+#ifndef playlist_hpp
+#define playlist_hpp
 
 #include "music.hpp"
 
+#include <cstddef>
 #include <vector>
 
-class Playlist
+class playlist
 {
 private:
-
-    std::vector<Music> musics_;
+    std::vector<music> musics_;
 
 public:
-
-    void addMusic(const Music& music);
-
-    bool removeMusic(std::size_t index);
-
-    void showPlaylist() const;
-
+    void add_music(const music& music_item);
+    bool remove_music(std::size_t index);
+    void show_playlist() const;
     std::size_t size() const;
-
-    const Music& getMusic(std::size_t index) const;
-
+    const music& get_music(std::size_t index) const;
     void clear();
+    const std::vector<music>& get_musics() const;
 };
 
 #endif

@@ -1,26 +1,37 @@
 #include "playlist.hpp"
 
+#include "errors.hpp"
+
 #include <iostream>
 #include <stdexcept>
 
-void Playlist::addMusic(const Music& music)
+void playlist::add_music(const music& music_item)
 {
-    musics_.push_back(music);
+    if (music_item.get_title().empty())
+    {
+        throw invalid_music("title cannot be empty");
+    }
+
+    if (music_item.get_duration() <= 0)
+    {
+        throw invalid_music("duration must be positive");
+    }
+
+    musics_.push_back(music_item);
 }
 
-bool Playlist::removeMusic(std::size_t index)
+bool playlist::remove_music(std::size_t index)
 {
     if (index >= musics_.size())
     {
         return false;
     }
 
-    musics_.erase(musics_.begin() + index);
-
+    musics_.erase(musics_.begin() + static_cast<std::ptrdiff_t>(index));
     return true;
 }
 
-void Playlist::showPlaylist() const
+void playlist::show_playlist() const
 {
     std::cout << "\n===== PLAYLIST =====\n\n";
 
@@ -30,25 +41,21 @@ void Playlist::showPlaylist() const
         return;
     }
 
-    for (std::size_t i = 0; i < musics_.size(); ++i)
+    for (std::size_t index = 0; index < musics_.size(); ++index)
     {
-        std::cout << i + 1 << ". ";
-
-        musics_[i].showInfo();
+        std::cout << index + 1 << ". ";
+        musics_[index].show_info();
     }
 
-    std::cout
-        << "\nTotal: "
-        << musics_.size()
-        << " music(s).\n";
+    std::cout << "\nTotal: " << musics_.size() << " music(s).\n";
 }
 
-std::size_t Playlist::size() const
+std::size_t playlist::size() const
 {
     return musics_.size();
 }
 
-const Music& Playlist::getMusic(std::size_t index) const
+const music& playlist::get_music(std::size_t index) const
 {
     if (index >= musics_.size())
     {
@@ -58,7 +65,12 @@ const Music& Playlist::getMusic(std::size_t index) const
     return musics_[index];
 }
 
-void Playlist::clear()
+void playlist::clear()
 {
     musics_.clear();
+}
+
+const std::vector<music>& playlist::get_musics() const
+{
+    return musics_;
 }

@@ -2,50 +2,40 @@
 
 #include <iostream>
 
-NewsProgram::NewsProgram(
+news_program::news_program(
     const std::string& title,
     const std::string& schedule,
-    int newsCount
+    int news_count
 )
-    : BroadcastContent(title, schedule),
-      newsCount_(newsCount)
+    : broadcast_content(title, schedule),
+      news_count_(news_count)
 {
 }
 
-int NewsProgram::calculateAudience() const
+int news_program::calculate_audience() const
 {
-    return newsCount_ * 250;
+    return news_count_ * 250;
 }
 
-std::string NewsProgram::type() const
+std::string news_program::type() const
 {
     return "News Program";
 }
 
-void NewsProgram::display() const
+void news_program::display() const
 {
-    BroadcastContent::display();
-
-    std::cout
-        << "Type: "
-        << type()
-        << '\n';
-
-    std::cout
-        << "News: "
-        << newsCount_
-        << '\n';
-
-    std::cout
-        << "Estimated audience: "
-        << calculateAudience()
-        << '\n';
+    broadcast_content::display();
+    std::cout << "Type: " << type() << '\n';
+    std::cout << "News: " << news_count_ << '\n';
+    std::cout << "Estimated audience: " << calculate_audience() << '\n';
 }
 
-void NewsProgram::transmit() const
+void news_program::transmit() const
 {
-    std::cout
-        << "[ON AIR] News program: "
-        << title_
-        << '\n';
+    std::cout << "[ON AIR] News program: " << title_ << '\n';
+}
+
+int news_program::get_news_count() const
+{
+    return news_count_;
 }

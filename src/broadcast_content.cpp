@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-BroadcastContent::BroadcastContent(
+broadcast_content::broadcast_content(
     const std::string& title,
     const std::string& schedule
 )
@@ -11,17 +11,20 @@ BroadcastContent::BroadcastContent(
 {
 }
 
-BroadcastContent::~BroadcastContent() = default;
+broadcast_content::~broadcast_content() = default;
 
-void BroadcastContent::display() const
+void broadcast_content::display() const
 {
-    std::cout
-        << "Title: "
-        << title_
-        << '\n';
+    std::cout << "Title: " << title_ << '\n';
+    std::cout << "Schedule: " << schedule_ << '\n';
+}
 
-    std::cout
-        << "Schedule: "
-        << schedule_
-        << '\n';
+const std::string& broadcast_content::get_title() const
+{
+    return title_;
+}
+
+const std::string& broadcast_content::get_schedule() const
+{
+    return schedule_;
 }

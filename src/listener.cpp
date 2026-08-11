@@ -2,74 +2,82 @@
 
 #include <iostream>
 
-Listener::Listener()
+listener::listener()
     : nickname_("Unknown"),
       country_("Unknown"),
-      favoriteGenre_("Unknown"),
+      favorite_genre_("Unknown"),
       online_(true)
 {
 }
 
-Listener::Listener(
+listener::listener(
     const std::string& nickname,
     const std::string& country,
-    const std::string& favoriteGenre
+    const std::string& favorite_genre
 )
     : nickname_(nickname),
       country_(country),
-      favoriteGenre_(favoriteGenre),
+      favorite_genre_(favorite_genre),
       online_(true)
 {
 }
 
-std::string Listener::getNickname() const
+std::string listener::get_nickname() const
 {
     return nickname_;
 }
 
-std::string Listener::getCountry() const
+std::string listener::get_country() const
 {
     return country_;
 }
 
-std::string Listener::getFavoriteGenre() const
+std::string listener::get_favorite_genre() const
 {
-    return favoriteGenre_;
+    return favorite_genre_;
 }
 
-bool Listener::isOnline() const
+bool listener::is_online() const
 {
     return online_;
 }
 
-void Listener::setNickname(const std::string& nickname)
+void listener::set_nickname(const std::string& nickname)
 {
     nickname_ = nickname;
 }
 
-void Listener::setCountry(const std::string& country)
+void listener::set_country(const std::string& country)
 {
     country_ = country;
 }
 
-void Listener::setFavoriteGenre(const std::string& genre)
+void listener::set_favorite_genre(const std::string& genre)
 {
-    favoriteGenre_ = genre;
+    favorite_genre_ = genre;
 }
 
-void Listener::setOnline(bool online)
+void listener::set_online(bool online)
 {
     online_ = online;
 }
 
-void Listener::showProfile() const
+void listener::show_profile() const
 {
     std::cout
         << nickname_
         << " | "
         << country_
         << " | Favorite: "
-        << favoriteGenre_
+        << favorite_genre_
         << " | "
         << (online_ ? "Online" : "Offline");
+}
+
+bool listener::operator==(const listener& other) const
+{
+    return nickname_ == other.nickname_
+        && country_ == other.country_
+        && favorite_genre_ == other.favorite_genre_
+        && online_ == other.online_;
 }

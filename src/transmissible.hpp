@@ -1,13 +1,11 @@
-#ifndef TRANSMISSIBLE_HPP
-#define TRANSMISSIBLE_HPP
+#ifndef transmissible_hpp
+#define transmissible_hpp
 
-class Transmissible
+class transmissible
 {
 public:
-
     virtual void transmit() const = 0;
-
-    virtual ~Transmissible() = default;
+    virtual ~transmissible() = default;
 };
 
 #endif

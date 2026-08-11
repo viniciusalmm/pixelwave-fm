@@ -1,27 +1,27 @@
-#ifndef BROADCAST_CONTENT_HPP
-#define BROADCAST_CONTENT_HPP
+#ifndef broadcast_content_hpp
+#define broadcast_content_hpp
 
 #include <string>
 
-class BroadcastContent
+class broadcast_content
 {
 protected:
-
     std::string title_;
     std::string schedule_;
 
 public:
-
-    BroadcastContent(
+    broadcast_content(
         const std::string& title,
         const std::string& schedule
     );
 
-    virtual ~BroadcastContent();
+    virtual ~broadcast_content();
 
-    virtual int calculateAudience() const = 0;
-
+    virtual int calculate_audience() const = 0;
     virtual std::string type() const = 0;
+
+    const std::string& get_title() const;
+    const std::string& get_schedule() const;
 
     virtual void display() const;
 };

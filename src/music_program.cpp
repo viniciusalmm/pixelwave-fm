@@ -2,50 +2,40 @@
 
 #include <iostream>
 
-MusicProgram::MusicProgram(
+music_program::music_program(
     const std::string& title,
     const std::string& schedule,
     int songs
 )
-    : BroadcastContent(title, schedule),
+    : broadcast_content(title, schedule),
       songs_(songs)
 {
 }
 
-int MusicProgram::calculateAudience() const
+int music_program::calculate_audience() const
 {
     return songs_ * 120;
 }
 
-std::string MusicProgram::type() const
+std::string music_program::type() const
 {
     return "Music Program";
 }
 
-void MusicProgram::display() const
+void music_program::display() const
 {
-    BroadcastContent::display();
-
-    std::cout
-        << "Type: "
-        << type()
-        << '\n';
-
-    std::cout
-        << "Songs: "
-        << songs_
-        << '\n';
-
-    std::cout
-        << "Estimated audience: "
-        << calculateAudience()
-        << '\n';
+    broadcast_content::display();
+    std::cout << "Type: " << type() << '\n';
+    std::cout << "Songs: " << songs_ << '\n';
+    std::cout << "Estimated audience: " << calculate_audience() << '\n';
 }
 
-void MusicProgram::transmit() const
+void music_program::transmit() const
 {
-    std::cout
-        << "[ON AIR] Music program: "
-        << title_
-        << '\n';
+    std::cout << "[ON AIR] Music program: " << title_ << '\n';
+}
+
+int music_program::get_songs() const
+{
+    return songs_;
 }

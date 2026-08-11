@@ -1,5 +1,8 @@
 build/
+build-*/
 cmake-build-*/
 .vscode/
 *.o
 *.exe
+state.json
+concept_violation

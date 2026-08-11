@@ -1,42 +1,38 @@
-#ifndef LISTENER_HPP
-#define LISTENER_HPP
+#ifndef listener_hpp
+#define listener_hpp
 
 #include <string>
 
-
-class Listener
+class listener
 {
 private:
-
     std::string nickname_;
-
     std::string country_;
-
-    std::string favoriteGenre_;
-
+    std::string favorite_genre_;
     bool online_;
 
 public:
+    listener();
 
-    Listener();
-
-    Listener(
+    listener(
         const std::string& nickname,
         const std::string& country,
-        const std::string& favoriteGenre
+        const std::string& favorite_genre
     );
 
-    std::string getNickname() const;
-    std::string getCountry() const;
-    std::string getFavoriteGenre() const;
-    bool isOnline() const;
+    std::string get_nickname() const;
+    std::string get_country() const;
+    std::string get_favorite_genre() const;
+    bool is_online() const;
 
-    void setNickname(const std::string& nickname);
-    void setCountry(const std::string& country);
-    void setFavoriteGenre(const std::string& genre);
-    void setOnline(bool online);
+    void set_nickname(const std::string& nickname);
+    void set_country(const std::string& country);
+    void set_favorite_genre(const std::string& genre);
+    void set_online(bool online);
 
-    void showProfile() const;
+    void show_profile() const;
+
+    bool operator==(const listener& other) const;
 };
 
 #endif
